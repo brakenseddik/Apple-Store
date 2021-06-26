@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:planety_app/controllers/user_controller.dart';
 import 'package:planety_app/models/product_model.dart';
+import 'package:planety_app/models/user_model.dart';
 import 'package:planety_app/views/auth/signup_screen.dart';
+import 'package:planety_app/views/checkout_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInScreen extends StatefulWidget {
   final List<ProductModel>? cartList;
@@ -13,6 +19,26 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final email = TextEditingController();
   final password = TextEditingController();
+  UserController _userController = UserController();
+
+  _login(BuildContext context, UserModel user) async {
+    var registerUser = await _userController.login(user);
+    var result = jsonDecode(registerUser.body);
+    if (result['result'] == true) {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setInt('userId', result['user']['id']);
+      preferences.setString('userName', result['user']['name']);
+      preferences.setString('userEmail', result['user']['email']);
+      print(result['user']);
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => CheckoutScreen(cartList: widget.cartList)));
+    } else {
+      print('failed to login');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +90,12 @@ class _SignInScreenState extends State<SignInScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0)),
                     color: Colors.black,
-                    onPressed: () {},
+                    onPressed: () {
+                      var user = UserModel();
+                      user.email = email.text;
+                      user.password = password.text;
+                      _login(context, user);
+                    },
                     child: Text(
                       'Log in',
                       style: TextStyle(color: Colors.white),

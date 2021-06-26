@@ -101,84 +101,90 @@ class _CartScreenState extends State<CartScreen> {
           ? ListView.builder(
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
               itemBuilder: (context, index) {
-                return Container(
-                  margin: EdgeInsets.all(4),
-                  decoration:
-                      BoxDecoration(border: Border.all(color: Colors.black)),
-                  height: 120,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(5),
-                              topRight: Radius.circular(5)),
-                          child: Image.network(
-                            _cartList[index].photo,
-                            width: 150,
-                            height: 120,
-                            fit: BoxFit.cover,
+                return Card(
+                  elevation: 5,
+                  shape: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                    Radius.circular(7),
+                  )),
+                  child: Container(
+                    margin: EdgeInsets.all(4),
+                    height: 120,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 3,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(5),
+                                topRight: Radius.circular(5)),
+                            child: Image.network(
+                              _cartList[index].photo,
+                              width: 150,
+                              height: 120,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                          flex: 5,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  _cartList[index].name,
-                                  overflow: TextOverflow.clip,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16),
+                        Expanded(
+                            flex: 5,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    _cartList[index].name,
+                                    overflow: TextOverflow.clip,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  '${_cartList[index].price - _cartList[index].discount} ' +
-                                      " x " +
-                                      _cartList[index].quantity.toString(),
-                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    '${_cartList[index].price - _cartList[index].discount} ' +
+                                        " x " +
+                                        _cartList[index].quantity.toString(),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w500),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          )),
-                      Expanded(
-                          child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.keyboard_arrow_up),
-                            onPressed: () {
-                              setState(() {
-                                total += this._cartList[index].price -
-                                    this._cartList[index].discount;
-                                this._cartList[index].quantity++;
-                              });
-                            },
-                          ),
-                          Text(_cartList[index].quantity.toString()),
-                          IconButton(
-                            icon: Icon(Icons.keyboard_arrow_down),
-                            onPressed: () {
-                              setState(() {
-                                if (_cartList[index].quantity > 1) {
-                                  total -= this._cartList[index].price -
+                              ],
+                            )),
+                        Expanded(
+                            child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.keyboard_arrow_up),
+                              onPressed: () {
+                                setState(() {
+                                  total += this._cartList[index].price -
                                       this._cartList[index].discount;
-                                  this._cartList[index].quantity--;
-                                }
-                              });
-                            },
-                          ),
-                        ],
-                      ))
-                    ],
+                                  this._cartList[index].quantity++;
+                                });
+                              },
+                            ),
+                            Text(_cartList[index].quantity.toString()),
+                            IconButton(
+                              icon: Icon(Icons.keyboard_arrow_down),
+                              onPressed: () {
+                                setState(() {
+                                  if (_cartList[index].quantity > 1) {
+                                    total -= this._cartList[index].price -
+                                        this._cartList[index].discount;
+                                    this._cartList[index].quantity--;
+                                  }
+                                });
+                              },
+                            ),
+                          ],
+                        ))
+                      ],
+                    ),
                   ),
                 );
               },

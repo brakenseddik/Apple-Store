@@ -5,7 +5,7 @@ class UserModel {
   toJson() {
     return {
       'id': id.toString(),
-      'name': name,
+      'name': name.toString(),
       'email': email,
       'password': password,
     };

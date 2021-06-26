@@ -176,7 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                'Hot Products',
+                'All Products',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
             ),

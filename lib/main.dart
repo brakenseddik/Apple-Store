@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
           appBarTheme: AppBarTheme(
               centerTitle: true,
               backgroundColor: Colors.white,
+              elevation: 0.0,
               titleTextStyle: TextStyle(color: Colors.black),
               actionsIconTheme: IconThemeData(color: Colors.black),
               iconTheme: IconThemeData(color: Colors.black))),

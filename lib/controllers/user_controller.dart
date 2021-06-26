@@ -11,4 +11,8 @@ class UserController {
   createUser(UserModel userModel) async {
     return await _repository.httpPost('register', userModel.toJson());
   }
+
+  login(UserModel user) async {
+    return await _repository.httpPost('login', user.toJson());
+  }
 }

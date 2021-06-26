@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:planety_app/controllers/shipping_controller.dart';
 import 'package:planety_app/models/product_model.dart';
+import 'package:planety_app/models/shipping_model.dart';
+import 'package:planety_app/views/payment_screen.dart';
 
 class CheckoutScreen extends StatefulWidget {
   final List<ProductModel>? cartList;
@@ -14,16 +19,20 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   final _email = TextEditingController();
 
   final _address = TextEditingController();
-
-/*  void _addShipping(BuildContext context, Shipping shipping) async {
-    var _shippingService = ShippingService();
+  var _shippingService = ShippingController();
+  void _addShipping(BuildContext context, ShippingModel shipping) async {
     var _shipping = await _shippingService.addShipping(shipping);
     var _result = json.decode(_shipping.body);
 
     if (_result['result'] == true) {
-      // navigate to payment screen
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => PayementScreen(
+                    cartList: widget.cartList,
+                  )));
     }
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +71,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 left: 28.0, top: 14.0, right: 28.0, bottom: 14.0),
             child: TextField(
               controller: _name,
-              decoration: InputDecoration(hintText: 'Name'),
+              decoration: InputDecoration(hintText: 'Name', enabled: true),
             ),
           ),
           Padding(
@@ -88,17 +97,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         ],
       ),
       bottomNavigationBar: Container(
+        margin: const EdgeInsets.only(left: 28.0, right: 28.0, bottom: 8.0),
         child: ButtonTheme(
           minWidth: 320.0,
-          height: 45.0,
+          height: 50.0,
           child: FlatButton(
             color: Colors.black,
             onPressed: () {
-              /* var model = Shipping();
+              var model = ShippingModel();
               model.name = _name.text;
               model.email = _email.text;
               model.address = _address.text;
-              _addShipping(context, model);*/
+              _addShipping(context, model);
             },
             child: Text('Continue to payment',
                 style: TextStyle(color: Colors.white)),
