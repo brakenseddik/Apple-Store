@@ -3,7 +3,7 @@ import 'package:planety_app/repository/db_connection.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Repository {
-  String baseUrl = "http://192.168.1.2:8000/api/";
+  String baseUrl = "http://192.168.1.3:8000/api/";
   late DatabaseConnection _connection;
 
   Repository() {

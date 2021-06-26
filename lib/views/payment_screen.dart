@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:planety_app/controllers/payment_controller.dart';
+import 'package:planety_app/models/payment_model.dart';
 import 'package:planety_app/models/product_model.dart';
 
 class PayementScreen extends StatefulWidget {
@@ -20,11 +22,16 @@ class _PayementScreenState extends State<PayementScreen> {
   final _expiryYear = TextEditingController();
   final _cvcNumber = TextEditingController();
 
-  _showSnackMessage(message) {
+  /*_showSnackMessage(message) {
     var snackBar = SnackBar(
       content: message,
     );
     _scaffoldKey.currentState!.showSnackBar(snackBar);
+  }*/
+  _makePayment(BuildContext context, PaymentModel payment) async {
+    PaymentController _paymentService = PaymentController();
+    var paymentData = await _paymentService.makePayment(payment);
+    print(paymentData.body.toString());
   }
 
   @override
@@ -163,7 +170,17 @@ class _PayementScreenState extends State<PayementScreen> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(7.0)),
                   color: Colors.black,
-                  onPressed: () {},
+                  onPressed: () {
+                    var payment = PaymentModel();
+                    payment.name = _cardHolderName.text;
+                    payment.email = _cardHolderEmail.text;
+                    payment.cardNumber = _cardNumber.text;
+                    payment.expiryMonth = _expiryMonth.text;
+                    payment.expiryYear = _expiryYear.text;
+                    payment.cvcNumber = _cvcNumber.text;
+                    payment.cartItems = this.widget.cartList!;
+                    _makePayment(context, payment);
+                  },
                   child: Text('Make Payment',
                       style: TextStyle(color: Colors.white)),
                 ),
