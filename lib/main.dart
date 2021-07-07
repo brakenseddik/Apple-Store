@@ -4,6 +4,7 @@ import 'package:planety_app/views/main_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIOverlays([]);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent, // transparent status bar
   ));
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: MainScreen(),
       theme: ThemeData(
+          scaffoldBackgroundColor: Colors.white,
           appBarTheme: AppBarTheme(
               centerTitle: true,
               backgroundColor: Colors.white,

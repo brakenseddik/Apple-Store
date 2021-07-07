@@ -11,8 +11,10 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   CartController _cartController = CartController();
-  late List<ProductModel> _cartList;
+  late List<ProductModel> _cartList = [];
   late double total = 0.0;
 
   void _checkout(List<ProductModel> cartItems) async {
@@ -36,7 +38,6 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   getCartItems() async {
-    _cartList = [];
     var cartItems = await _cartController.getCartItems();
     cartItems.forEach((product) {
       ProductModel model = ProductModel();
@@ -58,6 +59,13 @@ class _CartScreenState extends State<CartScreen> {
     });
   }
 
+  _showSnackMessage(message) {
+    var snackBar = SnackBar(
+      content: message,
+    );
+    _scaffoldKey.currentState!.showSnackBar(snackBar);
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -69,7 +77,8 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cart', style: TextStyle(color: Colors.black)),
+        title: Text('Cart (${_cartList.length} items)',
+            style: TextStyle(color: Colors.black)),
       ),
       bottomNavigationBar: InkWell(
         onTap: () {
@@ -101,89 +110,107 @@ class _CartScreenState extends State<CartScreen> {
           ? ListView.builder(
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
               itemBuilder: (context, index) {
-                return Card(
-                  elevation: 5,
-                  shape: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                    Radius.circular(7),
-                  )),
-                  child: Container(
-                    margin: EdgeInsets.all(4),
-                    height: 120,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(5),
-                                topRight: Radius.circular(5)),
-                            child: Image.network(
-                              _cartList[index].photo,
-                              width: 150,
-                              height: 120,
-                              fit: BoxFit.cover,
+                return Dismissible(
+                  key: Key(this._cartList[index].name),
+                  onDismissed: (val) {
+                    _deleteCartItem(index, this._cartList[index].id);
+                  },
+                  background: Container(
+                      child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 28.0),
+                            child: Icon(
+                              Icons.delete_outline_outlined,
+                              size: 36,
+                              color: Colors.white,
+                            ),
+                          )),
+                      color: Colors.redAccent),
+                  child: Card(
+                    elevation: 5,
+                    shape: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                      Radius.circular(7),
+                    )),
+                    child: Container(
+                      margin: EdgeInsets.all(4),
+                      height: 120,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 3,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(5),
+                                  topRight: Radius.circular(5)),
+                              child: Image.network(
+                                _cartList[index].photo,
+                                width: 150,
+                                height: 120,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                            flex: 5,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    _cartList[index].name,
-                                    overflow: TextOverflow.clip,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16),
+                          Expanded(
+                              flex: 5,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      _cartList[index].name,
+                                      overflow: TextOverflow.clip,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16),
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    '${_cartList[index].price - _cartList[index].discount} ' +
-                                        " x " +
-                                        _cartList[index].quantity.toString(),
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w500),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      '${_cartList[index].price - _cartList[index].discount} ' +
+                                          " x " +
+                                          _cartList[index].quantity.toString(),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                   ),
-                                ),
-                              ],
-                            )),
-                        Expanded(
-                            child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.keyboard_arrow_up),
-                              onPressed: () {
-                                setState(() {
-                                  total += this._cartList[index].price -
-                                      this._cartList[index].discount;
-                                  this._cartList[index].quantity++;
-                                });
-                              },
-                            ),
-                            Text(_cartList[index].quantity.toString()),
-                            IconButton(
-                              icon: Icon(Icons.keyboard_arrow_down),
-                              onPressed: () {
-                                setState(() {
-                                  if (_cartList[index].quantity > 1) {
-                                    total -= this._cartList[index].price -
+                                ],
+                              )),
+                          Expanded(
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.keyboard_arrow_up),
+                                onPressed: () {
+                                  setState(() {
+                                    total += this._cartList[index].price -
                                         this._cartList[index].discount;
-                                    this._cartList[index].quantity--;
-                                  }
-                                });
-                              },
-                            ),
-                          ],
-                        ))
-                      ],
+                                    this._cartList[index].quantity++;
+                                  });
+                                },
+                              ),
+                              Text(_cartList[index].quantity.toString()),
+                              IconButton(
+                                icon: Icon(Icons.keyboard_arrow_down),
+                                onPressed: () {
+                                  setState(() {
+                                    if (_cartList[index].quantity > 1) {
+                                      total -= (this._cartList[index].price -
+                                          this._cartList[index].discount);
+                                      this._cartList[index].quantity--;
+                                    }
+                                  });
+                                },
+                              ),
+                            ],
+                          ))
+                        ],
+                      ),
                     ),
                   ),
                 );
@@ -194,5 +221,15 @@ class _CartScreenState extends State<CartScreen> {
               child: Text('Your Shopping cart is empty'),
             ),
     );
+  }
+
+  _deleteCartItem(int index, id) async {
+    print(_cartList.length);
+    setState(() {
+      _cartList.removeAt(index);
+    });
+    print(_cartList.length);
+    var result = await _cartController.deleteItem(id);
+    print(result);
   }
 }

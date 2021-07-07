@@ -97,7 +97,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         ],
       ),
       bottomNavigationBar: Container(
-        margin: const EdgeInsets.only(left: 28.0, right: 28.0, bottom: 8.0),
+        margin: const EdgeInsets.only(left: 28.0, right: 28.0, bottom: 12.0),
         child: ButtonTheme(
           minWidth: 320.0,
           height: 50.0,

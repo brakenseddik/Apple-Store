@@ -13,6 +13,31 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   CartController _cartService = CartController();
+  late List<ProductModel> _cartItems;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  /*_getCartItems() async {
+    _cartItems = <ProductModel>[];
+    var cartItems = await _cartService.getCartItems();
+    cartItems.forEach((data) {
+      var product = ProductModel();
+      product.id = data['productId'];
+      product.name = data['productName'];
+      product.photo = data['productPhoto'];
+      product.price = data['productPrice'].toDouble();
+      product.discount = data['productDiscount'].toDouble();
+      product.quantity = data['productQuantity'];
+
+      setState(() {
+        _cartItems.add(product);
+      });
+      print(product.id);
+    });
+  }*/
 
   _addToCart(BuildContext context, ProductModel product) async {
     var result = await _cartService.addToCart(product);
@@ -54,7 +79,7 @@ class _ProductScreenState extends State<ProductScreen> {
         child: Container(
           color: Colors.black,
           height: 55,
-          margin: EdgeInsets.all(8),
+          margin: EdgeInsets.all(15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

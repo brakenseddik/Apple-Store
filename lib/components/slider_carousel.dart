@@ -7,11 +7,13 @@ Widget CarouselSlider(items, bool isloading) => SizedBox(
     height: 200,
     child: isloading
         ? Shimmer.fromColors(
-            child: Container(
-              height: 200,
-            ),
             baseColor: Colors.grey,
             highlightColor: Colors.white,
+            enabled: true,
+            child: Container(
+              height: 200,
+              width: double.infinity,
+            ),
           )
         : Carousel(
             images: items,

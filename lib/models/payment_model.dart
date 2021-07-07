@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:planety_app/models/product_model.dart';
 
 class PaymentModel {
-  int? id;
+  int? id, userId;
   String? name;
   String? email;
   String? cardNumber;
@@ -13,9 +13,10 @@ class PaymentModel {
   late List<ProductModel> cartItems;
   toJson() {
     var items = json.encode(cartItems.map((value) => value.toMap()).toList());
-
+    //json.encoder.convert(cartItems)
     return {
       'id': id.toString(),
+      'userId': userId.toString(),
       'name': name,
       'email': email,
       'cardNumber': cardNumber,

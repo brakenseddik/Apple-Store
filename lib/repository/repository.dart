@@ -3,7 +3,7 @@ import 'package:planety_app/repository/db_connection.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Repository {
-  String baseUrl = "http://192.168.1.3:8000/api/";
+  String baseUrl = "http://192.168.1.2:8000/api/";
   late DatabaseConnection _connection;
 
   Repository() {
@@ -47,10 +47,9 @@ class Repository {
         where: '$columnName =?', whereArgs: [data['productId']]);
   }
 
-  deleteLocal(table, columnName, data) async {
+  deleteLocal(table, id) async {
     var conn = await database;
-    return await conn!
-        .delete(table, where: '$columnName =?', whereArgs: ['productId']);
+    return await conn!.rawDelete("DELETE FROM $table WHERE id = $id");
   }
 
   getLocalByCondition(table, columnName, conditionalValue) async {

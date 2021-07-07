@@ -48,9 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
         model.id = category['id'];
         model.name = category['name'];
         model.icon = baseUrl + img;
-        setState(() {
-          _categoryList.add(model);
-        });
+
+        _categoryList.add(model);
       });
     }
     setState(() {
@@ -172,7 +171,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
             ),
-            HomeHotProducts(productList: _productList),
+            HomeHotProducts(
+              productList: _productList,
+              loading: isLoading2,
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(

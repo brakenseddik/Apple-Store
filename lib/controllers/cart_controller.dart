@@ -24,4 +24,8 @@ class CartController {
   getCartItems() async {
     return await _repository.getAllLocal('carts');
   }
+
+  deleteItem(id) async {
+    return await _repository.deleteLocal('carts', id);
+  }
 }

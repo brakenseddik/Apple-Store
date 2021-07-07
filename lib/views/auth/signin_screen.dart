@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:planety_app/controllers/user_controller.dart';
 import 'package:planety_app/models/product_model.dart';
 import 'package:planety_app/models/user_model.dart';
@@ -46,17 +47,6 @@ class _SignInScreenState extends State<SignInScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0.0,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.close,
-              color: Colors.red,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 120),
@@ -78,13 +68,15 @@ class _SignInScreenState extends State<SignInScreen> {
               child: TextField(
                 controller: password,
                 decoration: InputDecoration(
-                    hintText: 'Enter your password', labelText: 'Password'),
+                    suffixIcon: Icon(Icons.visibility_off),
+                    hintText: 'Enter your password',
+                    labelText: 'Password'),
               ),
             ),
             Column(
               children: <Widget>[
                 ButtonTheme(
-                  minWidth: 320,
+                  minWidth: MediaQuery.of(context).size.width - 96,
                   height: 45.0,
                   child: FlatButton(
                     shape: RoundedRectangleBorder(
@@ -111,10 +103,95 @@ class _SignInScreenState extends State<SignInScreen> {
                                   cartItems: widget.cartList,
                                 )));
                   },
-                  child: FittedBox(child: Text('Register your account')),
+                  child: FittedBox(
+                      child: Text(
+                    'Register your account',
+                    textAlign: TextAlign.right,
+                  )),
                 ),
               ],
             ),
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 150,
+                  child: Divider(
+                    thickness: 2,
+                    color: Colors.black,
+                  ),
+                ),
+                Text(
+                  'Or',
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  width: 150,
+                  child: Divider(
+                    thickness: 2,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  height: 50,
+                  width: MediaQuery.of(context).size.width - 96,
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 2, color: Colors.grey)),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          FontAwesomeIcons.google,
+                          size: 28,
+                        ),
+                      ),
+                      Spacer(),
+                      Text(
+                        'Google Sign In',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Spacer()
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  height: 50,
+                  width: MediaQuery.of(context).size.width - 96,
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 2, color: Colors.grey)),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          FontAwesomeIcons.facebookF,
+                          size: 28,
+                        ),
+                      ),
+                      Spacer(),
+                      Text(
+                        'Facebook Sign In',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Spacer()
+                    ],
+                  ),
+                )
+              ],
+            )
           ],
         ),
       ),
