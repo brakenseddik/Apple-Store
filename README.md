@@ -1,6 +1,8 @@
-# planety_app
+# Apple Store App
 
 A new Flutter project.
+
+<img src="https://github.com/brakenseddik/Apple-Store/blob/main/1.png" >
 
 ## Getting Started
 
