@@ -2,7 +2,15 @@
 
 A new Flutter project.
 
-<img src="https://github.com/brakenseddik/Apple-Store/blob/main/1.png" >
+<img src="https://github.com/brakenseddik/Apple-Store/blob/main/1.png" > </br>
+<img src="https://github.com/brakenseddik/Apple-Store/blob/main/2.png" > </br>
+<img src="https://github.com/brakenseddik/Apple-Store/blob/main/3.png" > </br>
+<img src="https://github.com/brakenseddik/Apple-Store/blob/main/4.png" > </br>
+<img src="https://github.com/brakenseddik/Apple-Store/blob/main/5.png" > </br>
+<img src="https://github.com/brakenseddik/Apple-Store/blob/main/6.png" > </br>
+<img src="https://github.com/brakenseddik/Apple-Store/blob/main/7.png" > </br>
+<img src="https://github.com/brakenseddik/Apple-Store/blob/main/8.png" > </br>
+
 
 ## Getting Started
 
