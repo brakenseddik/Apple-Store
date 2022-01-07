@@ -22,8 +22,8 @@ class _MainScreenState extends State<MainScreen> {
       body: children[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.black38,
@@ -34,13 +34,14 @@ class _MainScreenState extends State<MainScreen> {
           });
         },
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: ''),
           BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_bag_outlined), label: ''),
+              icon: Icon(Icons.home_outlined), label: 'Home'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_border_rounded), label: ''),
+              icon: Icon(Icons.shopping_bag_outlined), label: 'Cart'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline_outlined), label: ''),
+              icon: Icon(Icons.favorite_border_rounded), label: 'Favourites'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline_outlined), label: 'Profile'),
         ],
       ),
     );

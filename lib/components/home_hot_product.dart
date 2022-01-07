@@ -24,7 +24,7 @@ class _HomeHotProductState extends State<HomeHotProduct> {
                     )));
       },
       child: Container(
-        width: 160.0,
+        width: MediaQuery.of(context).size.width / 2,
         //height: 240.0,
         child: Card(
           child: Column(
@@ -35,7 +35,7 @@ class _HomeHotProductState extends State<HomeHotProduct> {
                     topLeft: Radius.circular(5), topRight: Radius.circular(5)),
                 child: Image.network(
                   widget.productModel!.photo,
-                  width: 160,
+                  width: MediaQuery.of(context).size.width / 2,
                   height: 150.0,
                   fit: BoxFit.cover,
                 ),

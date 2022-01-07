@@ -48,152 +48,58 @@ class _SignInScreenState extends State<SignInScreen> {
         backgroundColor: Colors.white,
         elevation: 0.0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 120),
-        child: ListView(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 48.0, top: 14.0, right: 48.0, bottom: 14.0),
-              child: TextField(
-                controller: email,
-                decoration: InputDecoration(
-                    hintText: 'youremail@example.com',
-                    labelText: 'Enter your email'),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(
+                left: 48.0, top: 14.0, right: 48.0, bottom: 14.0),
+            child: TextField(
+              controller: email,
+              decoration: InputDecoration(
+                  hintText: 'youremail@example.com',
+                  labelText: 'Enter your email'),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+                left: 48.0, top: 14.0, right: 48.0, bottom: 14.0),
+            child: TextField(
+              controller: password,
+              decoration: InputDecoration(
+                  suffixIcon: Icon(Icons.visibility_off),
+                  hintText: 'Enter your password',
+                  labelText: 'Password'),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 48),
+            width: double.infinity,
+            color: Colors.black,
+            height: 45.0,
+            child: Center(
+              child: Text(
+                'Log in',
+                style: TextStyle(color: Colors.white),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 48.0, top: 14.0, right: 48.0, bottom: 14.0),
-              child: TextField(
-                controller: password,
-                decoration: InputDecoration(
-                    suffixIcon: Icon(Icons.visibility_off),
-                    hintText: 'Enter your password',
-                    labelText: 'Password'),
-              ),
-            ),
-            Column(
-              children: <Widget>[
-                ButtonTheme(
-                  minWidth: MediaQuery.of(context).size.width - 96,
-                  height: 45.0,
-                  child: FlatButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0)),
-                    color: Colors.black,
-                    onPressed: () {
-                      var user = UserModel();
-                      user.email = email.text;
-                      user.password = password.text;
-                      _login(context, user);
-                    },
-                    child: Text(
-                      'Log in',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-                FlatButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SignUpScreen(
-                                  cartItems: widget.cartList,
-                                )));
-                  },
-                  child: FittedBox(
-                      child: Text(
-                    'Register your account',
-                    textAlign: TextAlign.right,
-                  )),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  width: 150,
-                  child: Divider(
-                    thickness: 2,
-                    color: Colors.black,
-                  ),
-                ),
-                Text(
-                  'Or',
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  width: 150,
-                  child: Divider(
-                    thickness: 2,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 5),
-                  height: 50,
-                  width: MediaQuery.of(context).size.width - 96,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 2, color: Colors.grey)),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          FontAwesomeIcons.google,
-                          size: 28,
-                        ),
-                      ),
-                      Spacer(),
-                      Text(
-                        'Google Sign In',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Spacer()
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 5),
-                  height: 50,
-                  width: MediaQuery.of(context).size.width - 96,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 2, color: Colors.grey)),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          FontAwesomeIcons.facebookF,
-                          size: 28,
-                        ),
-                      ),
-                      Spacer(),
-                      Text(
-                        'Facebook Sign In',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Spacer()
-                    ],
-                  ),
-                )
-              ],
-            )
-          ],
-        ),
+          ),
+          FlatButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SignUpScreen(
+                            cartItems: widget.cartList,
+                          )));
+            },
+            child: FittedBox(
+                child: Text(
+              'Register your account',
+              textAlign: TextAlign.right,
+            )),
+          ),
+        ],
       ),
     );
   }

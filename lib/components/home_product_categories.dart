@@ -20,9 +20,7 @@ class _HomeProductCategoriesState extends State<HomeProductCategories> {
         itemCount: this.widget.categoryList.length,
         itemBuilder: (context, index) {
           return HomeProductCategory(
-              this.widget.categoryList[index].icon,
-              this.widget.categoryList[index].name,
-              this.widget.categoryList[index].id);
+              this.widget.categoryList[index]);
         },
       ),
     );

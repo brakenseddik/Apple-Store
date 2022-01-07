@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:planety_app/models/category_model.dart';
 import 'package:planety_app/views/products/products_category_screen.dart';
 
 class HomeProductCategory extends StatefulWidget {
-  final String categoryIcon;
-  final String categoryName;
-  final int id;
-  HomeProductCategory(this.categoryIcon, this.categoryName, this.id);
+  final CategoryModel categoryModel;
+  HomeProductCategory(this.categoryModel);
   @override
   _HomeProductCategoryState createState() => _HomeProductCategoryState();
 }
@@ -19,8 +18,7 @@ class _HomeProductCategoryState extends State<HomeProductCategory> {
             context,
             MaterialPageRoute(
                 builder: (context) => ProductsCategoryScreen(
-                      id: widget.id,
-                      category: widget.categoryName,
+                     categoryModel: widget.categoryModel ,
                     )));
       },
       child: Container(
@@ -31,11 +29,11 @@ class _HomeProductCategoryState extends State<HomeProductCategory> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image.network(
-                widget.categoryIcon,
+                widget.categoryModel.icon,
                 width: 80.0,
                 height: 80.0,
               ),
-              Text(widget.categoryName),
+              Text(widget.categoryModel.name),
             ],
           ),
         ),
