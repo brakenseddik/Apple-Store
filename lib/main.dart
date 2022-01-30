@@ -5,6 +5,7 @@ import 'package:planety_app/controllers/cart_controller.dart';
 import 'package:planety_app/controllers/category_controller.dart';
 import 'package:planety_app/controllers/home_controller.dart';
 import 'package:planety_app/controllers/product_controller.dart';
+import 'package:planety_app/controllers/shipping_controller.dart';
 import 'package:planety_app/views/main_screen.dart';
 
 void main() async {
@@ -20,6 +21,7 @@ void main() async {
   Get.lazyPut(() => ProductController());
   Get.lazyPut(() => HomeController());
   Get.lazyPut(() => CartController());
+  Get.lazyPut(() => ShippingController());
 
   runApp(MyApp());
 }

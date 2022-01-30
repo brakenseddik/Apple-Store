@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:planety_app/controllers/shipping_controller.dart';
 import 'package:planety_app/models/product_model.dart';
 import 'package:planety_app/models/shipping_model.dart';
@@ -19,21 +21,20 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   final _email = TextEditingController();
 
   final _address = TextEditingController();
-  
-  var _shippingService = ShippingController();
 
+  final ShippingController _shippingController = Get.find();
 
-  void _addShipping(BuildContext context, ShippingModel shipping) async {
-    var _shipping = await _shippingService.addShipping(shipping);
-    var _result = json.decode(_shipping.body);
-
-    if (_result['result'] == true) {
+  void _shipping(ShippingModel shipping) async {
+    bool res = await _shippingController.addShipping(shipping);
+    if (res == true) {
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => PayementScreen(
-                    cartList: widget.cartList,
+                    cartList: this.widget.cartList,
                   )));
+    } else {
+      Fluttertoast.showToast(msg: 'Failed to add shipping');
     }
   }
 
@@ -108,10 +109,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             color: Colors.black,
             onPressed: () {
               var model = ShippingModel();
-              model.name = _name.text;
-              model.email = _email.text;
-              model.address = _address.text;
-              _addShipping(context, model);
+
+              model.name = _name.text.trim();
+              model.email = _email.text.trim();
+              model.address = _address.text.trim();
+
+              _shipping(model);
             },
             child: Text('Continue to payment',
                 style: TextStyle(color: Colors.white)),

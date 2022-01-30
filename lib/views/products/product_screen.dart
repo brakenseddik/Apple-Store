@@ -17,7 +17,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
   _addToCart(ProductModel product) async {
     int? result = await _cartController.addProductToCart(product);
-    if (result! > 0) {
+    if (result > 0) {
       _cartController.cartList.add(product);
       _cartController.total.value = 0.0;
       _cartController.calculateTotale();

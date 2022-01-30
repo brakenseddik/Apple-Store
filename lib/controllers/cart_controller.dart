@@ -4,8 +4,6 @@ import 'package:planety_app/repository/local_service.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
-  // static CartController instance = Get.find();
-
   DatabaseHelper _databaseHelper = DatabaseHelper();
 // Variables
   RxDouble total = 0.0.obs;
@@ -15,7 +13,7 @@ class CartController extends GetxController {
   RxBool loading = false.obs;
 // Methods
 
-  addProductToCart(ProductModel product) async {
+  Future<int> addProductToCart(ProductModel product) async {
     List<Map> items =
         await _databaseHelper.getItem('carts', 'productId', product.id);
 
@@ -35,6 +33,8 @@ class CartController extends GetxController {
 
       if (result > 0) {
         cartList.removeAt(index);
+        total.value = 0.0;
+        calculateTotale();
       } else {
         print('not possible');
       }
@@ -46,20 +46,28 @@ class CartController extends GetxController {
   }
 
   getCarts() async {
-    var cartItems = await _databaseHelper.getAllItems('carts');
+    try {
+      loading(true);
 
-    cartItems.forEach((product) {
-      final ProductModel model = ProductModel();
-      model.id = product['productId'];
-      model.name = product['productName'];
-      model.photo = product['productPhoto'];
-      model.price = product['productPrice'].toDouble();
-      model.discount = product['productDiscount'].toDouble();
-      model.quantity = product['productQuantity'];
+      var cartItems = await _databaseHelper.getAllItems('carts');
 
-      cartList.add(model);
-    });
-    calculateTotale();
+      cartItems.forEach((product) {
+        final ProductModel model = ProductModel();
+        model.id = product['productId'];
+        model.name = product['productName'];
+        model.photo = product['productPhoto'];
+        model.price = product['productPrice'].toDouble();
+        model.discount = product['productDiscount'].toDouble();
+        model.quantity = product['productQuantity'];
+
+        cartList.add(model);
+      });
+      loading(false);
+      calculateTotale();
+    } catch (e) {
+      print(e.toString());
+      loading(false);
+    }
   }
 
   double? calculateTotale() {

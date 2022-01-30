@@ -55,7 +55,7 @@ class DatabaseHelper {
 
   deleteItem(String table, int id) async {
     var conn = await database;
-    return await conn?.rawDelete("DELETE FROM $table WHERE id = $id");
+    return await conn?.rawDelete("DELETE FROM $table WHERE productId = $id");
   }
 
   getItem(String table, String columnName, conditionalValue) async {

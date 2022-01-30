@@ -1,13 +1,17 @@
-class ShippingModel {
-  int? id;
-  String? name, email, address;
+import 'dart:convert';
 
-  toJson() {
+class ShippingModel {
+ int? id;
+  String? name;
+  String? email;
+  String? address;
+
+  toJson(){
     return {
-      "id": id.toString(),
-      "name": name,
-      "email": email,
-      "address": address
+      'id' : id.toString(),
+      'name' : name,
+      'email' : email,
+      'address' : address
     };
   }
 }
