@@ -42,20 +42,20 @@ class _PayementScreenState extends State<PayementScreen> {
     print('result' + result.toString());
     if (result['result'] == true) {
       _showSuccessPaymentMessage(context);
-      CartController cartController = CartController();
-      widget.cartList!.forEach((item) {
-        cartController.deleteCartItemById(item.id);
-      });
+      // CartController cartController = CartController();
+      // widget.cartList!.forEach((item) {
+      //   cartController.deleteCartItemById(item.id);
+      // });
       Timer(Duration(seconds: 2), () {
         Navigator.pop(context);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => HomeScreen()));
       });
     } else {
-      CartController cartController = CartController();
-      widget.cartList!.forEach((item) {
-        cartController.deleteCartItemById(item.id);
-      });
+      // CartController cartController = CartController();
+      // widget.cartList!.forEach((item) {
+      //   cartController.deleteCartItemById(item.id);
+      // });
       showDialog(
           context: context,
           barrierDismissible: true,

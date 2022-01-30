@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:planety_app/constants.dart';
-import 'package:planety_app/repository/repository.dart';
+import 'package:planety_app/repository/remote_service.dart';
 
 class HomeController extends GetxController {
   Repository _repository = Repository();

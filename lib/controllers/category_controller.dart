@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:planety_app/constants.dart';
 import 'package:planety_app/models/category_model.dart';
-import 'package:planety_app/repository/repository.dart';
+import 'package:planety_app/repository/remote_service.dart';
 
 class CategoryController extends GetxController {
   Repository _repository = Repository();
@@ -25,7 +25,6 @@ class CategoryController extends GetxController {
       final categories = await _repository.httpGet('categories');
       var result = jsonDecode(categories.body);
       if (result != null) {
-        print(result);
         result['data'].forEach((category) {
           var model = CategoryModel();
           String imageUrl = category['icon'].toString();

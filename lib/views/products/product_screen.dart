@@ -13,49 +13,20 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final CartController _cartController = Get.find();
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  /*_getCartItems() async {
-    _cartItems = <ProductModel>[];
-    var cartItems = await _cartService.getCartItems();
-    cartItems.forEach((data) {
-      var product = ProductModel();
-      product.id = data['productId'];
-      product.name = data['productName'];
-      product.photo = data['productPhoto'];
-      product.price = data['productPrice'].toDouble();
-      product.discount = data['productDiscount'].toDouble();
-      product.quantity = data['productQuantity'];
-
-      setState(() {
-        _cartItems.add(product);
-      });
-      print(product.id);
-    });
-  }*/
-
   _addToCart(BuildContext context, ProductModel product) async {
-    int result = await _cartController.addProductToCart(product);
-    if (result > 0) {
-        _cartController.cartList.refresh();
-    _cartController.getCarts();
+    int? result = await _cartController.addProductToCart(product);
+    if (result! > 0) {
       Fluttertoast.showToast(msg: 'Item added to cart successfully!');
     } else {
       Fluttertoast.showToast(msg: 'failed to add product!');
     }
-  
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(
           widget.productModel.name,

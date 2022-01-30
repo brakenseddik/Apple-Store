@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:planety_app/constants.dart';
 import 'package:planety_app/models/product_model.dart';
-import 'package:planety_app/repository/repository.dart';
+import 'package:planety_app/repository/remote_service.dart';
 
 class ProductController extends GetxController {
   Repository _repository = Repository();

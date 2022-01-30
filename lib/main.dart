@@ -7,7 +7,7 @@ import 'package:planety_app/controllers/home_controller.dart';
 import 'package:planety_app/controllers/product_controller.dart';
 import 'package:planety_app/views/main_screen.dart';
 
-void main() async{
+void main() async {
   // WidgetsFlutterBinding.ensureInitialized();
   // SystemChrome.setEnabledSystemUIOverlays([]);
   // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -15,16 +15,11 @@ void main() async{
   // ));
 
   WidgetsFlutterBinding.ensureInitialized();
- 
 
-     final  categoryController = Get.lazyPut(()=>CategoryController());
-  final  productController = Get.lazyPut(()=>ProductController());
-  final  homeController =Get.lazyPut(()=>HomeController());
-  final  cartController= Get.lazyPut(()=>CartController());
-  
- 
-
- 
+  final categoryController = Get.lazyPut(() => CategoryController());
+  final productController = Get.lazyPut(() => ProductController());
+  final homeController = Get.lazyPut(() => HomeController());
+  Get.lazyPut(() => CartController());
 
   runApp(MyApp());
 }

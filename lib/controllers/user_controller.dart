@@ -1,5 +1,5 @@
 import 'package:planety_app/models/user_model.dart';
-import 'package:planety_app/repository/repository.dart';
+import 'package:planety_app/repository/remote_service.dart';
 
 class UserController {
   late Repository _repository;

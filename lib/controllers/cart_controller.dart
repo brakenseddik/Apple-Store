@@ -1,9 +1,13 @@
 import 'package:get/state_manager.dart';
 import 'package:planety_app/models/product_model.dart';
-import 'package:planety_app/repository/repository.dart';
-
+import 'package:planety_app/repository/local_service.dart';
+import 'package:planety_app/repository/remote_service.dart';
+import 'package:get/get.dart';
 class CartController extends GetxController {
-  Repository _repository = Repository();
+   static CartController instance = Get.find();
+
+
+  DatabaseHelper _databaseHelper = DatabaseHelper();
 // Variables
   RxDouble total = 0.0.obs;
   RxList<ProductModel> cartList = <ProductModel>[].obs;
@@ -11,29 +15,29 @@ class CartController extends GetxController {
   RxBool deleting = false.obs;
   RxBool loading = false.obs;
 // Methods
-  deleteCartItemById(id) async {
-    return await _repository.deleteLocal('carts', id);
-  }
 
   addProductToCart(ProductModel product) async {
     List<Map> items =
-        await _repository.getLocalByCondition('carts', 'productId', product.id);
+        await _databaseHelper.getItem('carts', 'productId', product.id);
     if (items.length > 0) {
-      product.quantity = items.first['productQuantity'] + 1;
-      return await _repository.updateLocal(
+      product.quantity = items.first['ProductQuantity'] + 1;
+      return await _databaseHelper.updateItem(
           'carts', 'productId', product.toMap());
-    }
+    } else {
+      product.quantity = 1;
 
-    product.quantity = 1;
-    return await _repository.saveLocal('carts', product.toMap());
+      var res = await _databaseHelper.inserItem('carts', product.toMap());
+      cartList.refresh();
+      return res;
+    }
   }
 
   Future<int?> deleteCartItem(int index, int id) async {
     try {
       print('list length:' + cartList.length.toString());
-      int result = await deleteCartItemById(id);
-
       cartList.removeAt(index);
+
+      int result = await _databaseHelper.deleteItem('carts', id);
 
       print('result:' + result.toString());
       print('list length:' + cartList.length.toString());
@@ -45,7 +49,7 @@ class CartController extends GetxController {
   }
 
   getCarts() async {
-    var cartItems = await _repository.getAllLocal('carts');
+    var cartItems = await _databaseHelper.getAllItems('carts');
 
     cartItems.forEach((product) {
       final ProductModel model = ProductModel();

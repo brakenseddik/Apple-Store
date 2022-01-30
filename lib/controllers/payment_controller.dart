@@ -1,5 +1,5 @@
 import 'package:planety_app/models/payment_model.dart';
-import 'package:planety_app/repository/repository.dart';
+import 'package:planety_app/repository/remote_service.dart';
 
 class PaymentController {
   Repository? _repository;
