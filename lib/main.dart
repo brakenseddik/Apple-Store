@@ -16,9 +16,9 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  final categoryController = Get.lazyPut(() => CategoryController());
-  final productController = Get.lazyPut(() => ProductController());
-  final homeController = Get.lazyPut(() => HomeController());
+  Get.lazyPut(() => CategoryController());
+  Get.lazyPut(() => ProductController());
+  Get.lazyPut(() => HomeController());
   Get.lazyPut(() => CartController());
 
   runApp(MyApp());

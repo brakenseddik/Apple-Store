@@ -15,10 +15,14 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
   final CartController _cartController = Get.find();
 
-  _addToCart(BuildContext context, ProductModel product) async {
+  _addToCart(ProductModel product) async {
     int? result = await _cartController.addProductToCart(product);
     if (result! > 0) {
-      Fluttertoast.showToast(msg: 'Item added to cart successfully!');
+      _cartController.cartList.add(product);
+      _cartController.total.value = 0.0;
+      _cartController.calculateTotale();
+
+      Fluttertoast.showToast(msg: 'Product added to cart successfully');
     } else {
       Fluttertoast.showToast(msg: 'failed to add product!');
     }
@@ -36,7 +40,7 @@ class _ProductScreenState extends State<ProductScreen> {
       ),
       bottomNavigationBar: InkWell(
         onTap: () {
-          _addToCart(context, widget.productModel);
+          _addToCart(widget.productModel);
         },
         child: Container(
           color: Colors.black,

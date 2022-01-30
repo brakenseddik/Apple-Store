@@ -1,11 +1,10 @@
 import 'package:get/state_manager.dart';
 import 'package:planety_app/models/product_model.dart';
 import 'package:planety_app/repository/local_service.dart';
-import 'package:planety_app/repository/remote_service.dart';
 import 'package:get/get.dart';
-class CartController extends GetxController {
-   static CartController instance = Get.find();
 
+class CartController extends GetxController {
+  // static CartController instance = Get.find();
 
   DatabaseHelper _databaseHelper = DatabaseHelper();
 // Variables
@@ -19,29 +18,27 @@ class CartController extends GetxController {
   addProductToCart(ProductModel product) async {
     List<Map> items =
         await _databaseHelper.getItem('carts', 'productId', product.id);
+
     if (items.length > 0) {
-      product.quantity = items.first['ProductQuantity'] + 1;
+      product.quantity = items.first['productQuantity'] + 1;
       return await _databaseHelper.updateItem(
           'carts', 'productId', product.toMap());
-    } else {
-      product.quantity = 1;
-
-      var res = await _databaseHelper.inserItem('carts', product.toMap());
-      cartList.refresh();
-      return res;
     }
+    product.quantity = 1;
+
+    return await _databaseHelper.inserItem('carts', product.toMap());
   }
 
   Future<int?> deleteCartItem(int index, int id) async {
     try {
-      print('list length:' + cartList.length.toString());
-      cartList.removeAt(index);
-
       int result = await _databaseHelper.deleteItem('carts', id);
 
-      print('result:' + result.toString());
-      print('list length:' + cartList.length.toString());
-      cartList.refresh();
+      if (result > 0) {
+        cartList.removeAt(index);
+      } else {
+        print('not possible');
+      }
+
       return result;
     } catch (e) {
       print('exception : ' + e.toString());
@@ -62,11 +59,11 @@ class CartController extends GetxController {
 
       cartList.add(model);
     });
-    calculateTotale(cartList);
+    calculateTotale();
   }
 
-  calculateTotale(List<ProductModel> products) {
-    products.forEach((item) {
+  double? calculateTotale() {
+    cartList.forEach((item) {
       total.value += (item.price - item.discount) * item.quantity;
     });
   }
