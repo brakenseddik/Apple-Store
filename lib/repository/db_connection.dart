@@ -4,9 +4,9 @@ import 'package:sqflite/sqflite.dart';
 
 class DatabaseConnection {
   initDatabase() async {
-    var directory = await getApplicationDocumentsDirectory();
-    var path = join(directory.path, 'db_ecom');
-    var database = await openDatabase(path, version: 1, onCreate: _onCreate);
+    final directory = await getApplicationDocumentsDirectory();
+    final path = join(directory.path, 'db_ecom');
+    final database = await openDatabase(path, version: 1, onCreate: _onCreate);
     return database;
   }
 

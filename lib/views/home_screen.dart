@@ -61,8 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
             ),
-            Expanded(
-              // height: MediaQuery.of(context).size.height - 100,
+            Container(
+              height: MediaQuery.of(context).size.height - 100,
               child: productController.loadingTwo.isTrue
                   ? allProductsLoading()
                   : allProductsSection(productController: productController),
@@ -82,27 +82,26 @@ class allProductsLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.only(left: 8, right: 8),
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 200,
-            childAspectRatio: 2.5 / 3,
-            crossAxisSpacing: 5,
-            mainAxisSpacing: 5),
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return Shimmer.fromColors(
-            baseColor: Colors.grey.shade300,
-            highlightColor: Colors.grey.shade100,
-            child: Container(
-                margin: EdgeInsets.all(8),
-                width: 160.0,
-                height: 160.0,
-                color: Colors.grey.shade300),
-          );
-        },
-      );
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.only(left: 8, right: 8),
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 200,
+          childAspectRatio: 2.5 / 3,
+          crossAxisSpacing: 5,
+          mainAxisSpacing: 5),
+      itemCount: 10,
+      itemBuilder: (context, index) {
+        return Shimmer.fromColors(
+          baseColor: Colors.grey.shade300,
+          highlightColor: Colors.grey.shade100,
+          child: Container(
+              margin: EdgeInsets.all(8),
+              width: 160.0,
+              height: 160.0,
+              color: Colors.grey.shade300),
+        );
+      },
+    );
   }
 }
-

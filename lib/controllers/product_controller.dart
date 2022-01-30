@@ -55,7 +55,7 @@ class ProductController extends GetxController {
     loading.value = true;
     var products = await getHotProduct();
     var result = jsonDecode(products.body);
-    if (result != null) {
+    if (result!= null) {
       result['data'].forEach((product) {
         var model = ProductModel();
         String imageUrl = product['photo'].toString();
@@ -64,7 +64,7 @@ class ProductController extends GetxController {
         model.name = product['name'];
         model.price = product['price'].toDouble();
         model.discount = product['discount'].toDouble();
-        model.photo = baseUrl + img;
+        model.photo = baseUrl + img ;
 
         productList.add(model);
       });

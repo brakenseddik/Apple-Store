@@ -28,33 +28,34 @@ class Repository {
   }
 
   httpGetById(String api, int id) async {
-    return await http.get(Uri.parse(baseUrl + api + "/" + id.toString()));
+    return await http
+        .get(Uri.parse(baseUrl + api + "/" + id.toString()))
+        .timeout(Duration(milliseconds: 5000));
   }
 
   getAllLocal(table) async {
     var conn = await database;
-    return await conn!.query(table);
+    return await conn?.query(table);
   }
 
   saveLocal(table, data) async {
     var conn = await database;
-    return await conn!.insert(table, data);
+    return await conn?.insert(table, data);
   }
 
   updateLocal(table, columnName, data) async {
     var conn = await database;
-    return await conn!.update(table, data,
+    return await conn?.update(table, data,
         where: '$columnName =?', whereArgs: [data['productId']]);
   }
 
   deleteLocal(table, id) async {
     var conn = await database;
-    return await conn!.rawDelete("DELETE FROM $table WHERE id = $id");
-  }
+    return await conn?.rawDelete("DELETE FROM $table WHERE id = $id" );  }
 
   getLocalByCondition(table, columnName, conditionalValue) async {
     var conn = await database;
-    return await conn!.rawQuery(
-        'SELECT * FROM $table WHERE $columnName=?', ['$conditionalValue']);
+    return await conn?.rawQuery(
+        'SELECT * FROM $table WHERE $columnName=?', ['$conditionalValue']  );
   }
 }

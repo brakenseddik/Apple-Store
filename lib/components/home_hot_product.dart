@@ -4,7 +4,7 @@ import 'package:planety_app/models/product_model.dart';
 import 'package:planety_app/views/products/product_screen.dart';
 
 class HomeHotProduct extends StatefulWidget {
-  final ProductModel? productModel;
+  final ProductModel productModel;
 
   HomeHotProduct(this.productModel);
   @override
@@ -34,7 +34,7 @@ class _HomeHotProductState extends State<HomeHotProduct> {
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(5), topRight: Radius.circular(5)),
                 child: Image.network(
-                  widget.productModel!.photo,
+                  widget.productModel.photo,
                   width: MediaQuery.of(context).size.width / 2,
                   height: 150.0,
                   fit: BoxFit.cover,
@@ -43,7 +43,7 @@ class _HomeHotProductState extends State<HomeHotProduct> {
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Text(
-                  this.widget.productModel!.name,
+                  this.widget.productModel.name,
                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -53,7 +53,7 @@ class _HomeHotProductState extends State<HomeHotProduct> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text('Price: ${this.widget.productModel!.price}'),
+                      Text('Price: ${this.widget.productModel.price}'),
                       // Text('Discount: ${this.widget.productDiscount}'),
                     ],
                   ))

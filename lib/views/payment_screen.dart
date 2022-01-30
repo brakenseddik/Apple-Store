@@ -44,7 +44,7 @@ class _PayementScreenState extends State<PayementScreen> {
       _showSuccessPaymentMessage(context);
       CartController cartController = CartController();
       widget.cartList!.forEach((item) {
-        cartController.deleteItem(item.id);
+        cartController.deleteCartItemById(item.id);
       });
       Timer(Duration(seconds: 2), () {
         Navigator.pop(context);
@@ -54,7 +54,7 @@ class _PayementScreenState extends State<PayementScreen> {
     } else {
       CartController cartController = CartController();
       widget.cartList!.forEach((item) {
-        cartController.deleteItem(item.id);
+        cartController.deleteCartItemById(item.id);
       });
       showDialog(
           context: context,

@@ -19,7 +19,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   final _email = TextEditingController();
 
   final _address = TextEditingController();
+  
   var _shippingService = ShippingController();
+
+
   void _addShipping(BuildContext context, ShippingModel shipping) async {
     var _shipping = await _shippingService.addShipping(shipping);
     var _result = json.decode(_shipping.body);

@@ -1,22 +1,30 @@
 // @dart=2.0
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:planety_app/controllers/cart_controller.dart';
 import 'package:planety_app/controllers/category_controller.dart';
 import 'package:planety_app/controllers/home_controller.dart';
 import 'package:planety_app/controllers/product_controller.dart';
 import 'package:planety_app/views/main_screen.dart';
 
-void main() {
+void main() async{
   // WidgetsFlutterBinding.ensureInitialized();
   // SystemChrome.setEnabledSystemUIOverlays([]);
   // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
   //   statusBarColor: Colors.transparent, // transparent status bar
   // ));
 
-  final CategoryController categoryController = Get.put(CategoryController());
-  final ProductController productController = Get.put(ProductController());
-  final HomeController homeController = Get.put(HomeController());
+  WidgetsFlutterBinding.ensureInitialized();
+ 
+
+     final  categoryController = Get.lazyPut(()=>CategoryController());
+  final  productController = Get.lazyPut(()=>ProductController());
+  final  homeController =Get.lazyPut(()=>HomeController());
+  final  cartController= Get.lazyPut(()=>CartController());
+  
+ 
+
+ 
 
   runApp(MyApp());
 }
@@ -24,7 +32,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: MainScreen(),
       theme: ThemeData(
