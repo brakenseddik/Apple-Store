@@ -1,4 +1,4 @@
-# Apple Store App
+# Ecommerce Project App
 
 A new Flutter project.
 
